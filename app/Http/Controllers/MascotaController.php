@@ -12,7 +12,8 @@ class MascotaController extends Controller
      */
     public function index()
     {
-        return view('mascotas.index');
+        $mascotas = Mascota::all();
+        return view('mascotas.index', compact('mascotas'));
     }
 
     /**
@@ -20,7 +21,7 @@ class MascotaController extends Controller
      */
     public function create()
     {
-        //
+        return view('mascotas.nuevamascota');
     }
 
     /**
@@ -28,7 +29,26 @@ class MascotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datos = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'especie' => 'required|string|max:255',
+            'raza' => 'nullable|string|max:255',
+            'edad' => 'nullable|integer|min:0',
+            'sexo' => 'nullable|string|max:20',
+            'descripcion' => 'nullable|string',
+            'estado' => 'required|string|max:50',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($request->hasFile('foto')) {
+            $nombreArchivo = time() . '_' . $request->file('foto')->getClientOriginalName();
+            $request->file('foto')->move(public_path('imagen/'), $nombreArchivo);
+            $datos['foto'] = 'imagen/' . $nombreArchivo;
+        }
+
+        Mascota::create($datos);
+
+        return redirect()->route('mascotas.index')->with('success', 'Mascota registrada correctamente.');
     }
 
     /**

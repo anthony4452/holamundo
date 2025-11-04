@@ -4,6 +4,44 @@
     <title>Pet Sitting - @yield('title', 'Adopciones')</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- 1. jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- 2. jQuery Validation -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/localization/messages_es.min.js"></script>
+    
+    <!-- 3. Bootstrap CSS & JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- 4. Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+    <!-- 5. DataTables core -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.dataTables.min.css">
+    <script src="https://cdn.datatables.net/2.3.1/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.3.1/i18n/es-ES.json"></script>
+    
+    <!-- 6. DataTables Buttons (exportación e impresión) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.3/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/3.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.print.min.js"></script>
+    
+    <!-- 7. Bootstrap FileInput -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/css/fileinput.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/locales/es.min.js"></script>
+    
+    <!-- 8. SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -46,16 +84,15 @@
     <!-- NAV -->
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}"><span class="flaticon-pawprint-1 mr-2"></span>Pet Sitting</a>
+        <a class="navbar-brand" href="{{ url('/') }}"><span class="flaticon-pawprint-1 mr-2"></span>Adopciones</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="fa fa-bars"></span> Menu
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="{{ route('mascotas.index') }}" class="nav-link">Mascotas</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Adopciones</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="{{ route('personas.index') }}" class="nav-link">Personas</a></li>
+            <li class="nav-item"><a href="{{ route('adopciones.index') }}" class="nav-link">Adopciones</a></li>
           </ul>
         </div>
       </div>
@@ -67,8 +104,25 @@
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-11 ftco-animate text-center">
-            <h1 class="mb-4">Highest Quality Care For Pets You'll Love</h1>
-            <p><a href="#" class="btn btn-primary mr-md-4 py-3 px-4">Learn more <span class="ion-ios-arrow-forward"></span></a></p>
+            <section class="ftco-section ftco-intro" style="background-color: rgba(255, 248, 240, 0.75); backdrop-filter: blur(6px); border-radius: 12px; padding: 30px;">
+                <div class="container">
+                    <div class="row justify-content-center">
+                    <div class="col-md-10 text-center ftco-animate">
+                        <h2 class="mb-3" style="font-weight: 600; color: #f96d00;">¡Gracias por visitar nuestro refugio virtual!</h2>
+                        <p style="font-size: 18px; color: #555;">
+                        Aquí no solo encontrarás mascotas, sino también historias de amor esperando ser escritas. Cada patita que ves busca un corazón que la abrace.
+                        </p>
+                        <blockquote class="mt-4" style="font-style: italic; color: #888;">
+                        “No se puede comprar el amor, pero sí se puede adoptar.”
+                        </blockquote>
+                        <a href="{{ route('mascotas.index') }}" class="btn btn-primary mt-4 px-4 py-2" style="font-size: 16px;">
+                        Conoce a nuestros amigos peludos
+                        </a>
+                    </div>
+                    </div>
+                </div>
+            </section>
+
           </div>
         </div>
       </div>
@@ -119,5 +173,38 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{{ asset('pets/js/google-map.js') }}"></script>
     <script src="{{ asset('pets/js/main.js') }}"></script>
+
+    <style>
+        .error {
+        color: red;
+        font-family: 'Montserrat';
+        }
+        
+        .form-control.error {
+        border: 1px solid red;
+        }
+    </style>
+
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            title: '¡ÉXITO!',
+            text: '{{ session('success') }}',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+    @if (session('error'))
+    <script>
+        Swal.fire({
+            title: '¡ERROR!',
+            text: '{{ session('error') }}',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
   </body>
 </html>

@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('mascotas', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('especie');
+            $table->string('raza')->nullable();
+            $table->integer('edad')->nullable();
+            $table->string('sexo')->nullable();
+            $table->text('descripcion')->nullable();
+            $table->string('estado')->default('Disponible');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
