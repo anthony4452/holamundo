@@ -24,4 +24,5 @@ class Persona extends Model
     {
         return $this->hasMany(Adopcion::class);
     }
+
 }

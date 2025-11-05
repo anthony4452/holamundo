@@ -51,26 +51,20 @@ class MascotaController extends Controller
         return redirect()->route('mascotas.index')->with('success', 'Mascota registrada correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+ 
     public function show(Mascota $mascota)
     {
-        //
+       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
         $mascota = Mascota::findOrFail($id);
         return view('mascotas.editarmascota', compact('mascota'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
         $mascota = Mascota::findOrFail($id);
@@ -103,7 +97,7 @@ class MascotaController extends Controller
 
     public function destroy(Mascota $mascota)
     {
-        if ($mascota->adopcions()->count() > 0) {
+        if ($mascota->adopciones()->count() > 0) {
             return redirect()->route('mascotas.index')
                 ->with('error', 'No se puede eliminar la mascota porque ya está adoptada o tiene adopciones registradas.');
         }
@@ -113,5 +107,6 @@ class MascotaController extends Controller
         return redirect()->route('mascotas.index')
             ->with('success', 'Mascota eliminada correctamente.');
     }
+
 
 }

@@ -22,8 +22,8 @@ class Mascota extends Model
         'foto',
     ];
 
-    public function adopcion()
+    public function adopciones()
     {
-        return $this->hasOne(Adopcion::class);
+        return $this->hasMany(Adopcion::class);
     }
 }
