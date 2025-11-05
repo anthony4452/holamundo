@@ -1,0 +1,144 @@
+@extends('layout.app')
+
+@section('content')
+
+<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img" style="background-image: url('{{ asset('pets/images/bg_3.jpg') }}');">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row d-md-flex justify-content-end">
+      <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate">
+        <div class="bg-light p-4 rounded shadow" style="background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(6px); border-radius: 16px;">
+          <h2 class="mb-4 text-center text-dark">
+            <span class="text-warning mr-2"></span> Registrar Nueva Persona
+          </h2>
+
+          <form action="{{ route('personas.store') }}" id="FormPersona" method="post">
+            @csrf
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><b>Nombre:</b></label>
+                  <input type="text" name="nombre" id="nombre" class="form-control rounded" placeholder="Nombre de la persona" required>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><b>Apellido:</b></label>
+                  <input type="text" name="apellido" id="apellido" class="form-control rounded" placeholder="Apellido" required>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><b>Cédula:</b></label>
+                  <input type="text" name="cedula" id="cedula" class="form-control rounded" placeholder="Cédula (10 dígitos)" maxlength="10" required>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><b>Teléfono:</b></label>
+                  <input type="text" name="telefono" id="telefono" class="form-control rounded" placeholder="Teléfono (opcional)">
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label><b>Dirección:</b></label>
+                  <input type="text" name="direccion" id="direccion" class="form-control rounded" placeholder="Dirección (opcional)">
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label><b>Correo:</b></label>
+                  <input type="email" name="correo" id="correo" class="form-control rounded" placeholder="Correo electrónico (opcional)">
+                </div>
+              </div>
+
+              <div class="col-md-12 text-center mt-4">
+                <a href="{{ route('personas.index') }}" class="btn btn-outline-danger me-3 rounded-pill">
+                  <i class="fa fa-times"></i> Cancelar
+                </a>
+                <button type="submit" class="btn btn-outline-success rounded-pill">
+                  <i class="fa fa-save"></i> Guardar Persona
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .btn:hover {
+    transform: scale(1.03);
+  }
+</style>
+
+{{-- VALIDACIÓN --}}
+<script>
+$.validator.setDefaults({ ignore: [] });
+
+$("#FormPersona").validate({
+  rules: {
+    nombre: {
+      required: true,
+      minlength: 2,
+      maxlength: 100,
+      pattern: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/
+    },
+    apellido: {
+      required: true,
+      minlength: 2,
+      maxlength: 100,
+      pattern: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/
+    },
+    cedula: {
+      required: true,
+      digits: true,
+      minlength: 10,
+      maxlength: 10
+    },
+    correo: {
+      email: true
+    },
+    telefono: {
+      maxlength: 20
+    }
+  },
+  messages: {
+    nombre: {
+      required: "El nombre es obligatorio",
+      minlength: "Debe tener al menos 2 caracteres",
+      maxlength: "Máximo 100 caracteres",
+      pattern: "Solo se permiten letras y espacios"
+    },
+    apellido: {
+      required: "El apellido es obligatorio",
+      minlength: "Debe tener al menos 2 caracteres",
+      maxlength: "Máximo 100 caracteres",
+      pattern: "Solo se permiten letras y espacios"
+    },
+    cedula: {
+      required: "La cédula es obligatoria",
+      digits: "Solo se permiten números",
+      minlength: "Debe tener exactamente 10 dígitos",
+      maxlength: "Debe tener exactamente 10 dígitos"
+    },
+    correo: {
+      email: "Ingrese un correo válido"
+    },
+    telefono: {
+      maxlength: "Máximo 20 caracteres"
+    }
+  }
+});
+</script>
+
+@endsection
