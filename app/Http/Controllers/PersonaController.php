@@ -56,17 +56,11 @@ class PersonaController extends Controller
      */
     public function edit(Persona $persona)
     {
-        $persona = Persona::findOrFail($id);
         return view('personas.editarpersona', compact('persona'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Persona $persona)
     {
-        $persona = Persona::findOrFail($id);
-
         $datos = $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
@@ -79,7 +73,6 @@ class PersonaController extends Controller
         $persona->update($datos);
 
         return redirect()->route('personas.index')->with('success', 'Persona actualizada correctamente.');
-    
     }
 
     /**
